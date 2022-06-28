@@ -1,18 +1,17 @@
 import express from 'express'; 
 import dotenv from 'dotenv'; 
-import mongoose from 'mongoose'; 
+import mongoose from 'mongoose';
 import cors from 'cors'; 
-import router from "./router/index.js"; 
+import router from "./routes/index.js"; 
 
 dotenv.config()
 
 const app = express();
 app.use(express.json())
 app.use(cors())
-
-
-app.listen(process.env.PORT, () => {
-    console.log("app listen to port ", process.env.PORT);
+app.use(router)
+app.listen(port, () => {
+    console.log(`app listen to ${port}`);
 });
 
 
@@ -20,5 +19,4 @@ mongoose
   .connect("mongodb://localhost:27017/musicApp")
   .then(() => {
     console.log("db connected");
-  })
-  .catch((err) => console.error(err));
+  }).catch((err) => console.error(err));

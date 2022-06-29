@@ -1,5 +1,6 @@
 import { Router } from "express";
-/* import { PlaylistController } from "../controller/playlist.controller.js"; */
+import { PlaylistController } from "../controller/playlist.controller.js";
+
 
 
 
@@ -19,9 +20,6 @@ router.put("/updateComment/:playlistId/:id", () => { });
 router.get("/search", () => { })
 router.get("/like/:playlistId", () => { })
 router.get("/disLike/:playlistId", () => {});
-
-
-
 
 
 

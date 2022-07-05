@@ -9,6 +9,7 @@ npm i mongoose
 npm i cors
 npm i nodemon
 
+
 `gitignore datei sollte erstellt werden und in dem node_modules geschrieben werden  `
 
 *************

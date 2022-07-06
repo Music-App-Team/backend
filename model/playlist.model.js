@@ -6,8 +6,8 @@ const commentSchema = new Schema(
     text: String,
     user: {
       type: Schema.Types.ObjectId,
-      ref: "user"
-    }
+      ref: "user",
+    },
   },
   { timestamps: true }
 );
@@ -19,7 +19,7 @@ const songSchema = new Schema(
     length: String,
     album: String,
     lang: String,
-    link: String
+    link: String,
   },
   { timestamps: true }
 );
@@ -27,10 +27,15 @@ const songSchema = new Schema(
 const playlistSchema = new Schema(
   {
     title: { type: String },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
     comments: [commentSchema],
-    songs: [songSchema]
+    songs: [songSchema],
   },
   { timestamps: true }
 );
 
-export const Playlist = model("Playlist", playlistSchema);
+export const PlayList = model("playlist", playlistSchema);

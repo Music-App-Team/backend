@@ -1,10 +1,12 @@
 import { PlayList } from "../model/playlist.model.js";
 
+
 export const getAllPlaylist = async (req, res) => {
 
   const playlists = await PlayList.find().populate("user", ["firstName"]);
   res.send(playlists);
 };
+
 
 export const addPlaylist = async (req, res) => {
 
@@ -20,4 +22,8 @@ export const addPlaylist = async (req, res) => {
 
   res.send(playlist);
 };
+
+
+
+   
 

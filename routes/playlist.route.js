@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { addComment, getAllComments,deleteComment,getComment } from "../controller/comment.controller.js";
 import { getAllPlaylist,addPlaylist } from "../controller/playlist.controller.js";
+import { auth } from "../middleware/auth.js";
 
 const router = Router();
 
-router.get("/getAllPlaylists", getAllPlaylist);
-router.post("/addPlaylist", addPlaylist);
+router.get("/getAllPlaylists",auth, getAllPlaylist);
+router.post("/addPlaylist",auth, addPlaylist);
 //router.put("/addSong/:playlistId", () => {});
 //router.get("/getPlaylistById/:id",()=>{});
 //router.put("/rename/:playlistId", () => {});

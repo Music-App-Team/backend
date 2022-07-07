@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const commentSchema = new Schema(
   {
-    text: String,
+    text:String,
     user: {
       type: Schema.Types.ObjectId,
       ref: "user"
@@ -34,3 +34,4 @@ const playlistSchema = new Schema(
 );
 
 export const Playlist = model("Playlist", playlistSchema);
+

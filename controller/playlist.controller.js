@@ -5,7 +5,7 @@ export const getAllPlaylist = async (req, res) => {
         const playlists = await Playlist.find();
         res.send(playlists);
 }
-    
+
 export const addPlaylist = async (req, res) => {
     const { title } = req.body;      
 
@@ -19,5 +19,3 @@ export const addPlaylist = async (req, res) => {
     res.send(playlist)
 
     }
-
-   

@@ -1,7 +1,7 @@
 import { PlayList } from "../model/playlist.model.js";
 
 export const getAllComments = async (req, res) => {
-    const comments = await PlayList.find();
+    const comments = await PlayList.find().populate("user", ["firstName"]);
     res.send(comments);
 }
 export const getComment = async (req, res) => {
@@ -23,7 +23,8 @@ export const addComment = async (req, res) => {
     if (!comments)
         return res.status(400).send({ message: "text required" })
     let comment = new PlayList({
-        comments
+        comments,
+        user: req.user.id,
     })
     comment = await comment.save()
     

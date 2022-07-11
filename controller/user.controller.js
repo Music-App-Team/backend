@@ -14,7 +14,7 @@ export const addPlaylistToFavorite = async (req, res) => {
   res.send({ message: "play list added to your favorite list" });
 };
 
-export const getFavoritePlaylists = async (req, res) => {
+export const getMyFavoritePlaylists = async (req, res) => {
   const userId = req.user.id;
 
   const user = await User.findById(userId).populate({
@@ -37,7 +37,23 @@ export const removePlaylistFromFavorite = async (req, res) => {
   const user = await User.findById(userId);
   if (!user) return res.status(404).send({ message: "user not found" });
 
+  //   console.log(user.playlists.remove);
   user.playlists.remove(playlistId);
   user.save();
   res.send({ message: "removed successfully" });
+};
+
+export const changeProfileImage = async (req, res) => {
+  const imagePath = req.file?.path;
+  const userId = req.user.id;
+
+  if (!imagePath) return res.status(400).send({ message: "file must sent" });
+
+  const user = await User.findById(userId);
+  if (!user) return res.status(404).send({ message: "user not found" });
+
+  user.image = imagePath;
+  user.save();
+
+  res.send({ path: imagePath });
 };

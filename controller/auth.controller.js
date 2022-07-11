@@ -11,7 +11,9 @@ export const login = async (req, res) => {
 
     // if not found send error 401 , return ...
     if (!user)
-      return res.status(401).send({ message: "email or password incorrect" });
+      return res
+        .status(401)
+        .send({ message: "username or password incorrect" });
 
     // if found check password is equal or not
     const passwordMatch = await bcrypt.compare(password, user.password);
@@ -20,29 +22,33 @@ export const login = async (req, res) => {
     if (!passwordMatch)
       return res
         .status(401)
-        .send({ message: "email or password is incorrect" });
+        .send({ message: "username or password incorrect" });
 
     // if equal send token
     const token = jwt.sign(
       { email: user.email, id: user._id },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h"
+        expiresIn: "1h",
       }
     );
 
     res.send({
-      token: token
+      token: token,
+      userInfo: {
+        image: user.image,
+        email: user.email,
+        fullName: user.firstName + " " + user.lastName,
+      },
     });
-  } catch (err) {
-    console.log(err);
+  } catch (e) {
+    console.log(e);
     res.status(500).send({
       message: "server error",
-      error: err.message
+      error: e.message,
     });
   }
 };
-
 export const signup = async (req, res) => {
   try {
     const { email, password, firstName, lastName } = req.body;
@@ -57,17 +63,17 @@ export const signup = async (req, res) => {
       firstName,
       lastName,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     });
     user = await user.save();
 
     res.send({
-      message: "sign up successfully"
+      message: "sign up successfully",
     });
-  } catch (err) {
+  } catch (e) {
     res.status(500).send({
       message: "server error",
-      error: err.message
+      error: e.message,
     });
   }
 };

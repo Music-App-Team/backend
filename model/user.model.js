@@ -9,9 +9,10 @@ const schema = new Schema({
   playlists: [
     {
       type: Schema.Types.ObjectId,
-      ref: "playlist"
-    }
-  ]
+      ref: "playlist",
+    },
+  ],
+  image: String,
 });
 
 export const User = model("user", schema);

@@ -37,7 +37,6 @@ export const removePlaylistFromFavorite = async (req, res) => {
   const user = await User.findById(userId);
   if (!user) return res.status(404).send({ message: "user not found" });
 
-  //   console.log(user.playlists.remove);
   user.playlists.remove(playlistId);
   user.save();
   res.send({ message: "removed successfully" });

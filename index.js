@@ -5,8 +5,16 @@ import cors from "cors";
 import authRoute from "./routes/auth.route.js";
 import playlistRoute from "./routes/playlist.route.js";
 import userRoutes from "./routes/user.route.js";
+import { v2 as cloudinary } from "cloudinary";
 
 dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_Cloud_Name,
+  api_key: process.env.CLOUDINARY_Api_Key,
+  api_secret: process.env.CLOUDINARY_Api_Secret,
+});
+
 
 const app = express();
 app.use(express.json());

@@ -8,6 +8,9 @@ npm i dotenv
 npm i mongoose
 npm i cors
 npm i nodemon
+npm i multer
+npm i cloudinary
+npm i multer-storage-cloudinary
 
 
 `gitignore datei sollte erstellt werden und in dem node_modules geschrieben werden  `

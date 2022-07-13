@@ -27,6 +27,9 @@ router.post("/addSong/:playlistId",auth, addSong);
 router.post("/uploadSong", [auth, upload.single("songFile")], uploadSong);
 
 //router.get("/getPlaylistById/:id",()=>{});
+router.post("/addPlaylist",auth, addPlaylist);
+//router.put("/addSong/:playlistId", () => {});
+router.get("/getPlaylistById/:id",auth,getPlaylist);
 //router.put("/rename/:playlistId", () => {});
 //router.delete("/deletePlaylist/:id", () => {});
 //router.delete("/deleteSongFromPlaylist/playlistId/:songId", () => {});

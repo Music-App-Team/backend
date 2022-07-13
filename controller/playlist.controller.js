@@ -6,6 +6,13 @@ export const getAllPlaylist = async (req, res) => {
   const playlists = await PlayList.find().populate("user", ["firstName"]);
   res.send(playlists);
 };
+export const getPlaylist = async (req, res) => {
+
+  const playlists = await PlayList.findById(req.params.id)
+  res.send(playlists);
+};
+
+
 
 
 export const addPlaylist = async (req, res) => {
@@ -23,7 +30,4 @@ export const addPlaylist = async (req, res) => {
   res.send(playlist);
 };
 
-
-
-   
 

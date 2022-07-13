@@ -16,7 +16,6 @@ const songSchema = new Schema(
   {
     name: String,
     artist: String,
-    length: String,
     album: String,
     lang: String,
     link: String,

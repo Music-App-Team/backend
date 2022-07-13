@@ -1,17 +1,17 @@
 import { PlayList } from "../model/playlist.model.js";
 import { User } from "../model/user.model.js";
 
-
-
 export const getAllPlaylist = async (req, res) => {
   const playlists = await PlayList.find().populate("user", ["firstName"]);
   res.send(playlists);
 };
-
+export const getPlaylist = async (req, res) => {
+  const playlists = await PlayList.findById(req.params.id);
+  res.send(playlists);
+};
 
 
 export const addPlaylist = async (req, res) => {
-
   const { title } = req.body;
   if (!title) return res.status(400).send({ message: "title required" });
   let playlist = new PlayList({
@@ -22,8 +22,6 @@ export const addPlaylist = async (req, res) => {
   res.send(playlist);
 };
 
-
-
 export const getDetail = async (req, res) => {
   const playlistId = req.params.playlistId;
   const userId = req.user.id;
@@ -32,18 +30,16 @@ export const getDetail = async (req, res) => {
     "firstName",
   ]);
   if (!playlist)
-    return res.status(404).send({ message: "play list with this id not found" });
+    return res
+      .status(404)
+      .send({ message: "play list with this id not found" });
   res.send({ playlist, own: playlist.user._id.toString() === userId });
 };
-
-
-
 
 export const addSong = async (req, res) => {
   const { name, artist, album, lang, link } = req.body;
   const playlistId = req.params.playlistId;
 
-  console.log(playlistId);
   const playlist = await PlayList.findById(playlistId);
   if (!playlist) return res.status(400).send({ message: "playlist not found" });
 
@@ -60,6 +56,18 @@ export const addSong = async (req, res) => {
   res.send(playlist);
 };
 
+export const search = async (req, res) => {
+  try {
+    const playlists = await PlayList.find({ title: req.query.title }).populate(
+      "user",
+      ["firstName"]
+    );
+    res.send(playlists);
+  } catch (err) {
+    console.log("message", err);
+    return res.status(500).send({ message: err.message });
+  }
+};
 
 export const uploadSong = async (req, res) => {
   const songPath = req.file?.path;
@@ -68,9 +76,3 @@ export const uploadSong = async (req, res) => {
 
   res.send({ path: songPath });
 };
-
-
-
-
-   
-

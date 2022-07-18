@@ -12,6 +12,12 @@ const schema = new Schema({
       ref: "playlist"
     }
   ],
+  dislikes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "playlist"
+    }
+  ],
   playlists: [
     {
       type: Schema.Types.ObjectId,

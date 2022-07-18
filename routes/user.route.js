@@ -5,7 +5,9 @@ import {
   getMyFavoritePlaylists,
   removePlaylistFromFavorite,
   addLike,
-  getLikes
+  getLikes,
+  addDisLike,
+  getDisLikes
 } from "../controller/user.controller.js";
 
 
@@ -38,6 +40,8 @@ router.put("/changeProfileImage",[auth, upload.single("image")],changeProfileIma
 );
 router.patch("/likes", auth, addLike);
 router.get("/getlikes", auth, getLikes);
+router.patch("/dislikes", auth, addDisLike);
+router.get("/getdislikes", auth, getDisLikes);
 //router.put("/editProfile", () => {});
 
 export default router;

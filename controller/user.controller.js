@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { User } from "../model/user.model.js";
 
 export const addPlaylistToFavorite = async (req, res) => {
@@ -56,3 +57,36 @@ export const changeProfileImage = async (req, res) => {
 
   res.send({ path: imagePath });
 };
+
+//Add Likes //
+export const addLike = async (req, res) => {
+  // If req.user.id empty => error
+  if (!req.user.id) return res.status(404).send({ message: "user not found" });
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, {
+
+      likes: req.body.likes
+
+    }, {
+      new: true
+    });
+    return res.json({ updatedUser })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ msg: err.message })
+  }
+}
+// get Likes
+export const getLikes = async (req, res) => {
+  console.log("getLikes called")
+  try {
+    const user = await User.findById(req.user.id).exec();
+    if (!user) { throw new Error("user not found") }
+    res.send(user.likes);
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ msg: err.message })
+  }
+
+}

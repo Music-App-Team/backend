@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const commentSchema = new Schema(
   {
-    text:String,
+    text: String,
     user: {
       type: Schema.Types.ObjectId,
       ref: "user",
@@ -23,6 +23,8 @@ const songSchema = new Schema(
   { timestamps: true }
 );
 
+
+
 const playlistSchema = new Schema(
   {
     title: { type: String },
@@ -31,6 +33,7 @@ const playlistSchema = new Schema(
       ref: "user",
       required: true,
     },
+
     comments: [commentSchema],
     songs: [songSchema],
   },

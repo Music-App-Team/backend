@@ -6,6 +6,12 @@ const schema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   password: { type: String, required: true, minlength: 6 },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "playlist"
+    }
+  ],
   playlists: [
     {
       type: Schema.Types.ObjectId,

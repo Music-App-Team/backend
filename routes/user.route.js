@@ -4,7 +4,10 @@ import {
   changeProfileImage,
   getMyFavoritePlaylists,
   removePlaylistFromFavorite,
+  addLike,
+  getLikes
 } from "../controller/user.controller.js";
+
 
 import { auth } from "../middleware/auth.js";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
@@ -33,6 +36,10 @@ router.delete(
 
 router.put("/changeProfileImage",[auth, upload.single("image")],changeProfileImage
 );
+router.patch("/likes", auth, addLike);
+router.get("/getlikes", auth, getLikes);
 //router.put("/editProfile", () => {});
 
 export default router;
+
+// [HOST]/users/123456/likes

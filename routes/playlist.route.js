@@ -49,7 +49,7 @@ router.get("/getComment/:id", auth, getComment);
 router.delete("/deleteComment/:id", auth, deleteComment);
 //router.put("/updateComment/:playlistId/:id", () => {});
 router.get("/search", auth, search);
-//router.get("/like/:playlistId", () => {});
+
 //router.get("/disLike/:playlistId", () => {});
 
 export default router;

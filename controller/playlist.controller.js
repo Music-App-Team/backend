@@ -1,6 +1,8 @@
 import { PlayList } from "../model/playlist.model.js";
 import { User } from "../model/user.model.js";
 
+
+
 export const getAllPlaylist = async (req, res) => {
   try {
     const playlists = await PlayList.find().populate("user", ["firstName"]);
@@ -10,15 +12,19 @@ export const getAllPlaylist = async (req, res) => {
     return res.status(500).send({ message: err.message });
   }
 };
+
+
+
 export const getPlaylist = async (req, res) => {
   try {
     const playlists = await PlayList.findById(req.params.id);
     res.send(playlists);
   } catch (err) {
-    console.log("message", err);
     return res.status(500).send({ message: err.message });
   }
 };
+
+
 
 export const addPlaylist = async (req, res) => {
   try {
@@ -31,10 +37,10 @@ export const addPlaylist = async (req, res) => {
     playlist = await playlist.save();
     res.send(playlist);
   } catch (err) {
-    console.log("message", err);
     return res.status(500).send({ message: err.message });
   }
 };
+
 
 export const getDetail = async (req, res) => {
   try {
@@ -50,10 +56,10 @@ export const getDetail = async (req, res) => {
         .send({ message: "play list with this id not found" });
     res.send({ playlist, own: playlist.user._id.toString() === userId });
   } catch (err) {
-    console.log("message", err);
     return res.status(500).send({ message: err.message });
   }
 };
+
 
 export const addSong = async (req, res) => {
   try {
@@ -73,13 +79,13 @@ export const addSong = async (req, res) => {
     });
 
     await playlist.save();
-
     res.send(playlist);
   } catch (err) {
-    console.log("message", err);
     return res.status(500).send({ message: err.message });
   }
 };
+
+
 
 export const search = async (req, res) => {
   try {
@@ -89,10 +95,11 @@ export const search = async (req, res) => {
     );
     res.send(playlists);
   } catch (err) {
-    console.log("message", err);
     return res.status(500).send({ message: err.message });
   }
 };
+
+
 
 export const uploadSong = async (req, res) => {
   try {
@@ -102,7 +109,22 @@ export const uploadSong = async (req, res) => {
 
     res.send({ path: songPath });
   } catch (err) {
-    console.log("message", err);
     return res.status(500).send({ message: err.message });
   }
 };
+
+export const removeSong = async (req, res) => {
+  try {
+    const { playlistId, songId } = req.params;
+    const playlist = await PlayList.findById(playlistId)
+    if (!playlist) return res.status(404).sens({ message: "playlist not found" })  
+
+    playlist.songs.remove(songId);
+    await playlist.save()
+
+    res.send({message:"removed successfully"})
+    
+  } catch (err) {
+     return res.status(500).send({ message: err.message });
+  }
+}

@@ -8,7 +8,6 @@ export const getAllPlaylist = async (req, res) => {
     const playlists = await PlayList.find().populate("user", ["firstName"]);
     res.send(playlists);
   } catch (err) {
-    console.log("message", err);
     return res.status(500).send({ message: err.message });
   }
 };
@@ -116,15 +115,33 @@ export const uploadSong = async (req, res) => {
 export const removeSong = async (req, res) => {
   try {
     const { playlistId, songId } = req.params;
-    const playlist = await PlayList.findById(playlistId)
-    if (!playlist) return res.status(404).sens({ message: "playlist not found" })  
+    const playlist = await PlayList.findById(playlistId);
+    if (!playlist)
+      return res.status(404).sens({ message: "playlist not found" });
 
     playlist.songs.remove(songId);
-    await playlist.save()
+    await playlist.save();
 
-    res.send({message:"removed successfully"})
-    
+    res.send({ message: "removed successfully" });
   } catch (err) {
-     return res.status(500).send({ message: err.message });
+    return res.status(500).send({ message: err.message });
   }
-}
+};
+
+
+export const renamePlaylist = async (req, res) => {
+  try {
+    const { playlistId } = req.params;
+    const { title } = req.body;
+    const playlist = await PlayList.findById(playlistId);
+    if (!playlist)
+      return res.status(404).sens({ message: "playlist not found" });
+
+    playlist.title = title;
+    await playlist.save();
+
+    res.send({ message: "rename successfully" });
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
+};

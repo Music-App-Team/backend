@@ -90,3 +90,35 @@ export const getLikes = async (req, res) => {
   }
 
 }
+//Add disLikes //
+export const addDisLike = async (req, res) => {
+  // If req.user.id empty => error
+  if (!req.user.id) return res.status(404).send({ message: "user not found" });
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, {
+
+      dislikes: req.body.dislikes
+
+    }, {
+      new: true
+    });
+    return res.json({ updatedUser })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ msg: err.message })
+  }
+}
+// get disLikes
+export const getDisLikes = async (req, res) => {
+  console.log("getdisLikes called")
+  try {
+    const user = await User.findById(req.user.id).exec();
+    if (!user) { throw new Error("user not found") }
+    res.send(user.dislikes);
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ msg: err.message })
+  }
+
+}

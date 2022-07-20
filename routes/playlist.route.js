@@ -14,6 +14,7 @@ import {
   search,
   removeSong,
   renamePlaylist,
+  deletePlaylist,
 } from "../controller/playlist.controller.js";
 import { auth } from "../middleware/auth.js";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
@@ -39,15 +40,14 @@ router.post("/addSong/:playlistId", auth, addSong);
 router.post("/uploadSong", [auth, upload.single("songFile")], uploadSong);
 router.delete("/removeSong/:playlistId/:songId", auth, removeSong);
 router.put("/renamePlaylist/:playlistId/", auth, renamePlaylist);
+router.delete("/deletePlaylist/:playlistId", auth, deletePlaylist);
 
 //router.get("/getPlaylistById/:id",()=>{});
 // router.get("/getPlaylistById/:id",auth,getPlaylist);
-//router.delete("/deletePlaylist/:id", () => {});
 router.post("/addComment", auth, addComment);
 router.get("/getAllComments", auth, getAllComments);
 router.get("/getComment/:id", auth, getComment);
 router.delete("/deleteComment/:id", auth, deleteComment);
-//router.put("/updateComment/:playlistId/:id", () => {});
 router.get("/search", auth, search);
 
 //router.get("/disLike/:playlistId", () => {});

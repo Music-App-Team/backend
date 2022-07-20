@@ -122,12 +122,12 @@ export const removeSong = async (req, res) => {
     playlist.songs.remove(songId);
     await playlist.save();
 
+
     res.send({ message: "removed successfully" });
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }
 };
-
 
 
 export const renamePlaylist = async (req, res) => {
@@ -141,14 +141,15 @@ export const renamePlaylist = async (req, res) => {
     playlist.title = title;
     await playlist.save();
 
-
     res.send({ message: "rename successfully" });
+
+
+    res.send({ message: "removed successfully" });
+
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }
 };
-
-
 
 export const deletePlaylist = async (req, res) => {
   try {

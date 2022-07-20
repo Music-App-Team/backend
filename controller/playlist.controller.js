@@ -145,3 +145,15 @@ export const renamePlaylist = async (req, res) => {
     return res.status(500).send({ message: err.message });
   }
 };
+
+
+export const deletePlaylist = async (req, res) => {
+  try {
+    const { playlistId } = req.params;
+    await PlayList.findByIdAndDelete(playlistId);
+
+    res.send({ message: "removed successfully" });
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
+};

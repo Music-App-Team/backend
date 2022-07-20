@@ -48,7 +48,6 @@ router.post("/addComment", auth, addComment);
 router.get("/getAllComments", auth, getAllComments);
 router.get("/getComment/:id", auth, getComment);
 router.delete("/deleteComment/:id", auth, deleteComment);
-//router.put("/updateComment/:playlistId/:id", () => {});
 router.get("/search", auth, search);
 
 //router.get("/disLike/:playlistId", () => {});

@@ -10,9 +10,9 @@ import { v2 as cloudinary } from "cloudinary";
 dotenv.config();
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_Cloud_Name,
-  api_key: process.env.CLOUDINARY_Api_Key,
-  api_secret: process.env.CLOUDINARY_Api_Secret,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 
@@ -28,7 +28,7 @@ app.listen(process.env.PORT, () => {
 });
 
 mongoose
-  .connect("mongodb://localhost:27017/musicApp")
+  .connect(process.env.MONGO_DB_CONNECTION)
   .then(() => {
     console.log("db connected");
   })

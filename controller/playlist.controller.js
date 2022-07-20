@@ -142,10 +142,6 @@ export const renamePlaylist = async (req, res) => {
     await playlist.save();
 
     res.send({ message: "rename successfully" });
-
-
-    res.send({ message: "removed successfully" });
-
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }

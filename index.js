@@ -22,8 +22,12 @@ app.use("/auth", authRoute);
 app.use("/playlist", playlistRoute);
 app.use("/user", userRoutes);
 app.get("/", (req, res) => {
+
   res.json({ message: "welcome to the our music api!" });
 });
+
+
+
 
 app.listen(process.env.PORT, () => {
   console.log("app listen to port " + process.env.PORT);

@@ -71,7 +71,7 @@ export const signup = async (req, res) => {
       message: "sign up successfully",
     });
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(500).send({
       message: "server error",
       error: e.message,

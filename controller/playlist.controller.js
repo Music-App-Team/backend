@@ -1,8 +1,6 @@
 import { PlayList } from "../model/playlist.model.js";
 import { User } from "../model/user.model.js";
 
-
-
 export const getAllPlaylist = async (req, res) => {
   try {
     const playlists = await PlayList.find().populate("user", ["firstName"]);
@@ -12,8 +10,6 @@ export const getAllPlaylist = async (req, res) => {
   }
 };
 
-
-
 export const getPlaylist = async (req, res) => {
   try {
     const playlists = await PlayList.findById(req.params.id);
@@ -22,8 +18,6 @@ export const getPlaylist = async (req, res) => {
     return res.status(500).send({ message: err.message });
   }
 };
-
-
 
 export const addPlaylist = async (req, res) => {
   try {
@@ -39,7 +33,6 @@ export const addPlaylist = async (req, res) => {
     return res.status(500).send({ message: err.message });
   }
 };
-
 
 export const getDetail = async (req, res) => {
   try {
@@ -58,7 +51,6 @@ export const getDetail = async (req, res) => {
     return res.status(500).send({ message: err.message });
   }
 };
-
 
 export const addSong = async (req, res) => {
   try {
@@ -84,21 +76,16 @@ export const addSong = async (req, res) => {
   }
 };
 
-
-
 export const search = async (req, res) => {
   try {
-    const playlists = await PlayList.find({ title: req.query.title }).populate(
-      "user",
-      ["firstName"]
-    );
+    const playlists = await PlayList.find({
+      title: { $regex: req.query.title },
+    }).populate("user", ["firstName"]);
     res.send(playlists);
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }
 };
-
-
 
 export const uploadSong = async (req, res) => {
   try {
@@ -122,13 +109,11 @@ export const removeSong = async (req, res) => {
     playlist.songs.remove(songId);
     await playlist.save();
 
-
     res.send({ message: "removed successfully" });
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }
 };
-
 
 export const renamePlaylist = async (req, res) => {
   try {
@@ -139,6 +124,7 @@ export const renamePlaylist = async (req, res) => {
       return res.status(404).sens({ message: "playlist not found" });
 
     playlist.title = title;
+
     await playlist.save();
 
     res.send({ message: "rename successfully" });

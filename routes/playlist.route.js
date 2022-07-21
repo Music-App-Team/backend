@@ -3,7 +3,6 @@ import {
   addComment,
   getAllComments,
   deleteComment,
-  getComment,
 } from "../controller/comment.controller.js";
 import {
   getAllPlaylist,
@@ -41,15 +40,10 @@ router.post("/uploadSong", [auth, upload.single("songFile")], uploadSong);
 router.delete("/removeSong/:playlistId/:songId", auth, removeSong);
 router.put("/renamePlaylist/:playlistId/", auth, renamePlaylist);
 router.delete("/deletePlaylist/:playlistId", auth, deletePlaylist);
-
-//router.get("/getPlaylistById/:id",()=>{});
-// router.get("/getPlaylistById/:id",auth,getPlaylist);
-router.post("/addComment", auth, addComment);
-router.get("/getAllComments", auth, getAllComments);
-router.get("/getComment/:id", auth, getComment);
-router.delete("/deleteComment/:id", auth, deleteComment);
+router.post("/addComment/:playlistId", auth, addComment);
+router.get("/getAllComments/:playlistId", auth, getAllComments);
+router.delete("/deleteComment/:playlistId/:id", auth, deleteComment);
 router.get("/search", auth, search);
 
-//router.get("/disLike/:playlistId", () => {});
 
 export default router;
